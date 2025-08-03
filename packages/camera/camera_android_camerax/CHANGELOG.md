@@ -1,7 +1,11 @@
+## 0.6.19+1
+
+* Fixes incorrect camera switching by selecting a camera via its CameraInfo.
+
 ## 0.6.19
 
-* Ensures that a new surface is provided every time that one is requested to render the camera preview
-  to fix pausing and resuming the preview.
+* Changes target rotation of captured images to current default display rotation to fix captured
+  photo orientation to upright.
 
 ## 0.6.18+3
 

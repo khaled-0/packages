@@ -266,6 +266,9 @@ class AndroidCameraCameraX extends CameraPlatform {
   @visibleForTesting
   late bool enableRecordingAudio;
 
+  /// A map to associate a [CameraInfo] with its camera name.
+  final Map<String, CameraInfo> _savedCameras = <String, CameraInfo>{};
+
   /// Returns list of all available cameras and their descriptions.
   @override
   Future<List<CameraDescription>> availableCameras() async {
@@ -301,6 +304,8 @@ class AndroidCameraCameraX extends CameraPlatform {
       cameraSensorOrientation = cameraInfo.sensorRotationDegrees;
       cameraName = 'Camera $cameraCount';
       cameraCount++;
+
+      _savedCameras[cameraName] = cameraInfo;
 
       // TODO(camsim99): Use camera ID retrieved from Camera2CameraInfo as
       // camera name: https://github.com/flutter/flutter/issues/147545.
@@ -357,13 +362,15 @@ class AndroidCameraCameraX extends CameraPlatform {
     if (error != null) {
       throw CameraException(error.errorCode, error.description);
     }
+    // Choose CameraInfo to create CameraSelector by name associated with desired camera.
+    final CameraInfo? chosenCameraInfo = _savedCameras[cameraDescription.name];
 
     // Save CameraSelector that matches cameraDescription.
     final LensFacing cameraSelectorLensDirection =
         _getCameraSelectorLensDirection(cameraDescription.lensDirection);
     cameraIsFrontFacing = cameraSelectorLensDirection == LensFacing.front;
     cameraSelector = proxy.newCameraSelector(
-      requireLensFacing: cameraSelectorLensDirection,
+      cameraInfoForFilter: chosenCameraInfo,
     );
     // Start listening for device orientation changes preceding camera creation.
     unawaited(
@@ -392,7 +399,8 @@ class AndroidCameraCameraX extends CameraPlatform {
     // Configure ImageCapture instance.
     imageCapture = proxy.newImageCapture(
       resolutionSelector: presetResolutionSelector,
-      /* use CameraX default target rotation */ targetRotation: null,
+      /* use CameraX default target rotation */ targetRotation:
+          await deviceOrientationManager.getDefaultDisplayRotation(),
     );
 
     // Configure ImageAnalysis instance.
@@ -966,9 +974,9 @@ class AndroidCameraCameraX extends CameraPlatform {
       await imageCapture!.setFlashMode(CameraXFlashMode.off);
     }
 
-    // Set target rotation to default CameraX rotation only if capture
-    // orientation not locked.
-    if (!captureOrientationLocked && shouldSetDefaultRotation) {
+    // Set target rotation to the current default CameraX rotation if
+    // the capture orientation is not locked.
+    if (!captureOrientationLocked) {
       await imageCapture!.setTargetRotation(
         await deviceOrientationManager.getDefaultDisplayRotation(),
       );
