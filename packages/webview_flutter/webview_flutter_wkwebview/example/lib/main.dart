@@ -501,9 +501,17 @@ class SampleMenu extends StatelessWidget {
   }
 
   Future<void> _onListCookies(BuildContext context) async {
-    final cookies =
-        await webViewController.runJavaScriptReturningResult('document.cookie')
-            as String;
+    final Uri? domain = Uri.tryParse(
+      (await webViewController.currentUrl()) ?? '',
+    );
+    late final List<WebViewCookie> cookies;
+
+    if (domain == null) {
+      cookies = [];
+    } else {
+      cookies = await cookieManager.getCookies(domain);
+    }
+
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

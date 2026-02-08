@@ -61,10 +61,8 @@ public class CookieManagerProxyApi extends PigeonApiCookieManager {
     pigeon_instance.setAcceptThirdPartyCookies(webView, accept);
   }
 
-    @Override
-    public @NotNull String getCookies(@NotNull CookieManager pigeon_instance, @NotNull String domain) {
-        final String cookie = pigeon_instance.getCookie(domain);
-        if (cookie == null) return "";
-        return cookie;
-    }
+  @Override
+  public @NonNull String getCookies(@NonNull CookieManager pigeon_instance, @NonNull String url) {
+    return pigeon_instance.getCookie(url);
+  }
 }
