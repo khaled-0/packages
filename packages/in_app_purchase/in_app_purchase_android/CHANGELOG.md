@@ -1,3 +1,7 @@
+## 0.4.0+10
+
+* Fixes dartdoc comments that accidentally used HTML.
+
 ## 0.4.0+9
 
 * Updates build files from Groovy to Kotlin.

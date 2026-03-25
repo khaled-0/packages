@@ -1,3 +1,7 @@
+## 2.4.23
+
+* Fixes dartdoc comments that accidentally used HTML.
+
 ## 2.4.22
 
 * Updates build files from Groovy to Kotlin.

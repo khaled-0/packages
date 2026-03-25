@@ -1,3 +1,7 @@
+## 2.15.1
+
+* Fixes dartdoc comments that accidentally used HTML.
+
 ## 2.15.0
 
 * Adds support to retrieve WebView cookies. See `PlatformWebViewCookieManager.getCookies`.
