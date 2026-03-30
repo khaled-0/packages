@@ -92,7 +92,14 @@ class WebKitWebViewCookieManager extends PlatformWebViewCookieManager {
       }
 
       final domain = props[HttpCookiePropertyKey.domain].toString();
-      if (!domain.contains(url.host)) {
+
+      // Follow RFC 6265 guideline for domain matching
+      var cookieDomain = domain;
+      if (domain.startsWith('.')) {
+        cookieDomain = cookieDomain.substring(1);
+      }
+
+      if (url.host != cookieDomain && !url.host.endsWith('.$cookieDomain')) {
         return null;
       }
 

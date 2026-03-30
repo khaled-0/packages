@@ -115,6 +115,7 @@ void main() {
       // Mock cookies returned by the cookie store
       final mockCookie1 = MockHTTPCookie();
       final mockCookie2 = MockHTTPCookie();
+      final mockCookie3 = MockHTTPCookie();
 
       when(mockCookie1.getProperties()).thenAnswer(
         (_) async => <HttpCookiePropertyKey, Object>{
@@ -134,9 +135,18 @@ void main() {
         },
       );
 
+      when(mockCookie3.getProperties()).thenAnswer(
+        (_) async => <HttpCookiePropertyKey, Object>{
+          HttpCookiePropertyKey.name: 'cookie3',
+          HttpCookiePropertyKey.value: 'value3',
+          HttpCookiePropertyKey.domain: '.flutter.dev',
+          HttpCookiePropertyKey.path: '/path',
+        },
+      );
+
       when(
         mockCookieStore.getAllCookies(),
-      ).thenAnswer((_) async => [mockCookie1, mockCookie2]);
+      ).thenAnswer((_) async => [mockCookie1, mockCookie2, mockCookie3]);
 
       PigeonOverrides.wKWebsiteDataStore_defaultDataStore =
           mockWKWebsiteDataStore;
@@ -149,7 +159,7 @@ void main() {
         Uri.parse('https://flutter.dev'),
       );
 
-      expect(cookies.length, 2);
+      expect(cookies.length, 3);
 
       expect(cookies[0].name, 'cookie1');
       expect(cookies[0].value, 'value1');
@@ -160,6 +170,17 @@ void main() {
       expect(cookies[1].value, 'value2');
       expect(cookies[1].domain, 'flutter.dev');
       expect(cookies[1].path, '/path');
+
+      final List<WebViewCookie> cookiesWww = await manager.getCookies(
+        Uri.parse('https://www.flutter.dev'),
+      );
+
+      expect(cookiesWww.length, 3);
+
+      expect(cookiesWww[2].name, 'cookie3');
+      expect(cookiesWww[2].value, 'value3');
+      expect(cookiesWww[2].domain, '.flutter.dev');
+      expect(cookiesWww[2].path, '/path');
     });
   });
 }
