@@ -662,13 +662,12 @@ class SampleMenu extends StatelessWidget {
     return webViewController.loadHtmlString(kAlertTestPage);
   }
 
-  Widget _getCookieList(String cookies) {
-    if (cookies == '""') {
+  Widget _getCookieList(List<WebViewCookie> cookies) {
+    if (cookies.isEmpty) {
       return Container();
     }
-    final List<String> cookieList = cookies.split(';');
-    final Iterable<Text> cookieWidgets = cookieList.map(
-      (String cookie) => Text(cookie),
+    final Iterable<Text> cookieWidgets = cookies.map(
+      (WebViewCookie cookie) => Text(cookie.toString()),
     );
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
