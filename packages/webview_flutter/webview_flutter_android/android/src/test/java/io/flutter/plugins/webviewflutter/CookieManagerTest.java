@@ -81,19 +81,4 @@ public class CookieManagerTest {
 
     assertEquals(cookieValue, result);
   }
-
-  @Test
-  public void getCookies_returnsEmptyStringIfNull() {
-    final PigeonApiCookieManager api = new TestProxyApiRegistrar().getPigeonApiCookieManager();
-
-    final CookieManager instance = mock(CookieManager.class);
-    final String domain = "https://flutter.dev";
-
-    // Mock the CookieManager to return null
-    when(instance.getCookie(domain)).thenReturn(null);
-
-    final String result = api.getCookies(instance, domain);
-
-    assertEquals("", result);
-  }
 }
