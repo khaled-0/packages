@@ -7,14 +7,6 @@ package io.flutter.plugins.webviewflutter;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import kotlin.Result;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
