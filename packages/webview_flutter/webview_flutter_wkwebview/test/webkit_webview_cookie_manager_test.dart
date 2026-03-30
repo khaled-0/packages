@@ -106,7 +106,7 @@ void main() {
       );
     });
 
-    test('getCookies returns cookies correctly', () async {
+    test('getAllCookies returns cookies correctly', () async {
       final mockWKWebsiteDataStore = MockWKWebsiteDataStore();
       final mockCookieStore = MockWKHTTPCookieStore();
 
@@ -135,7 +135,7 @@ void main() {
       );
 
       when(
-        mockCookieStore.getCookies('flutter.dev'),
+        mockCookieStore.getAllCookies(),
       ).thenAnswer((_) async => [mockCookie1, mockCookie2]);
 
       PigeonOverrides.wKWebsiteDataStore_defaultDataStore =
