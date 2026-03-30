@@ -7,10 +7,9 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
 import 'package:webview_flutter_android/src/android_webkit.g.dart' as _i2;
 import 'package:webview_flutter_android/src/android_webview_controller.dart'
-    as _i7;
+    as _i6;
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart'
     as _i3;
 
@@ -107,17 +106,12 @@ class MockCookieManager extends _i1.Mock implements _i2.CookieManager {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<String> getCookies(String? domain) =>
+  _i5.Future<String?> getCookies(String? url) =>
       (super.noSuchMethod(
-            Invocation.method(#getCookies, [domain]),
-            returnValue: _i5.Future<String>.value(
-              _i6.dummyValue<String>(
-                this,
-                Invocation.method(#getCookies, [domain]),
-              ),
-            ),
+            Invocation.method(#getCookies, [url]),
+            returnValue: _i5.Future<String?>.value(),
           )
-          as _i5.Future<String>);
+          as _i5.Future<String?>);
 
   @override
   _i2.CookieManager pigeon_copy() =>
@@ -135,7 +129,7 @@ class MockCookieManager extends _i1.Mock implements _i2.CookieManager {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAndroidWebViewController extends _i1.Mock
-    implements _i7.AndroidWebViewController {
+    implements _i6.AndroidWebViewController {
   MockAndroidWebViewController() {
     _i1.throwOnMissingStub(this);
   }
@@ -466,7 +460,7 @@ class MockAndroidWebViewController extends _i1.Mock
 
   @override
   _i5.Future<void> setOnShowFileSelector(
-    _i5.Future<List<String>> Function(_i7.FileSelectorParams)?
+    _i5.Future<List<String>> Function(_i6.FileSelectorParams)?
     onShowFileSelector,
   ) =>
       (super.noSuchMethod(
@@ -491,8 +485,8 @@ class MockAndroidWebViewController extends _i1.Mock
 
   @override
   _i5.Future<void> setGeolocationPermissionsPromptCallbacks({
-    _i7.OnGeolocationPermissionsShowPrompt? onShowPrompt,
-    _i7.OnGeolocationPermissionsHidePrompt? onHidePrompt,
+    _i6.OnGeolocationPermissionsShowPrompt? onShowPrompt,
+    _i6.OnGeolocationPermissionsHidePrompt? onHidePrompt,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#setGeolocationPermissionsPromptCallbacks, [], {
@@ -506,8 +500,8 @@ class MockAndroidWebViewController extends _i1.Mock
 
   @override
   _i5.Future<void> setCustomWidgetCallbacks({
-    required _i7.OnShowCustomWidgetCallback? onShowCustomWidget,
-    required _i7.OnHideCustomWidgetCallback? onHideCustomWidget,
+    required _i6.OnShowCustomWidgetCallback? onShowCustomWidget,
+    required _i6.OnHideCustomWidgetCallback? onHideCustomWidget,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#setCustomWidgetCallbacks, [], {
@@ -616,7 +610,7 @@ class MockAndroidWebViewController extends _i1.Mock
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setMixedContentMode(_i7.MixedContentMode? mode) =>
+  _i5.Future<void> setMixedContentMode(_i6.MixedContentMode? mode) =>
       (super.noSuchMethod(
             Invocation.method(#setMixedContentMode, [mode]),
             returnValue: _i5.Future<void>.value(),
@@ -626,7 +620,7 @@ class MockAndroidWebViewController extends _i1.Mock
 
   @override
   _i5.Future<bool> isWebViewFeatureSupported(
-    _i7.WebViewFeatureType? featureType,
+    _i6.WebViewFeatureType? featureType,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#isWebViewFeatureSupported, [featureType]),
