@@ -499,7 +499,7 @@ class SampleMenu extends StatelessWidget {
     final Uri? domain = Uri.tryParse(
       (await webViewController.currentUrl()) ?? '',
     );
-    late final List<WebViewCookie> cookies;
+    final List<WebViewCookie> cookies;
 
     if (domain == null) {
       cookies = [];

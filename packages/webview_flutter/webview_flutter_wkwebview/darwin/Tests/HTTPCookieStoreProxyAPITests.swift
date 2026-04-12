@@ -27,14 +27,14 @@ class HTTPCookieStoreProxyAPITests: XCTestCase {
       result in
       switch result {
       case .success(_):
-        expect.fulfill()
-      case .failure(_):
-        break
+        XCTAssertEqual(instance!.setCookieArg, cookie)
+      case .failure(let error):
+        XCTFail("\(error)")
       }
+      expect.fulfill()
     }
 
     wait(for: [expect], timeout: 1.0)
-    XCTAssertEqual(instance!.setCookieArg, cookie)
   }
 
   @MainActor func testGetCookies() {
@@ -62,10 +62,10 @@ class HTTPCookieStoreProxyAPITests: XCTestCase {
         XCTAssertEqual(cookies.count, 2)
         XCTAssertTrue(cookies.contains(cookie1))
         XCTAssertTrue(cookies.contains(cookie2))
-        expectAll.fulfill()
-      case .failure(_):
-        break
+      case .failure(let error):
+        XCTFail("\(error)")
       }
+      expectAll.fulfill()
     }
 
     wait(for: [expectAll], timeout: 1.0)
