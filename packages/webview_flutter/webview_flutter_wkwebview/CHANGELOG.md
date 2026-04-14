@@ -1,6 +1,9 @@
 ## 3.25.0
 
 * Adds support for retrieving cookies with `PlatformWebViewCookieManager.getCookies`.
+## 3.24.3
+
+* Adds support to get failing url from DNS errors on iOS 26+.
 
 ## 3.24.2
 
